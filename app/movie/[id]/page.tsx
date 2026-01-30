@@ -156,7 +156,18 @@ export default async function MovieDetailsPage({
           href="/"
           className="fixed left-4 top-4 z-50 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 p-2 text-sm text-red-100 shadow-md shadow-black/30 backdrop-blur transition hover:border-white/30 hover:bg-white/10 sm:left-6 sm:top-6"
         >
-          ←
+          <svg
+            viewBox="0 0 24 24"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
         </NavigationLink>
       </div>
 
