@@ -1,13 +1,27 @@
 type MovieCardProps = {
   title: string;
   meta?: string;
+  posterUrl?: string;
 };
 
-export default function MovieCard({ title, meta = "2024 · Action · 2h 30m" }: MovieCardProps) {
+export default function MovieCard({
+  title,
+  meta = "2024 · Action · 2h 30m",
+  posterUrl,
+}: MovieCardProps) {
   return (
     <article className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-5">
-      <div className="flex h-40 items-center justify-center rounded-xl bg-white/10 text-sm text-red-200">
-        Poster
+      <div className="flex h-40 items-center justify-center overflow-hidden rounded-xl bg-white/10 text-sm text-red-200">
+        {posterUrl ? (
+          <img
+            src={posterUrl}
+            alt={`${title} poster`}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          "Poster"
+        )}
       </div>
       <div className="flex flex-col gap-2">
         <h2 className="text-lg font-semibold text-white">{title}</h2>

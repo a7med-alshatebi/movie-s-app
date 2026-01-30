@@ -1,5 +1,4 @@
-import MovieCard from "./components/MovieCard";
-import SearchBar from "./components/SearchBar";
+import MovieSearchApp from "./components/MovieSearchApp";
 
 export default function Home() {
   return (
@@ -18,20 +17,7 @@ export default function Home() {
           </p>
         </header>
 
-        <SearchBar />
-
-        <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            "Inception",
-            "Interstellar",
-            "The Dark Knight",
-            "Oppenheimer",
-            "Dune",
-            "Avatar",
-          ].map((title) => (
-            <MovieCard key={title} title={title} />
-          ))}
-        </section>
+        <MovieSearchApp />
       </main>
     </div>
   );
