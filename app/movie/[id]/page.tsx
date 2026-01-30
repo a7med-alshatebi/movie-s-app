@@ -45,8 +45,10 @@ export default async function MovieDetailsPage({
   if (!movie) {
     return (
       <div className="min-h-screen bg-red-950 text-red-50">
-        <main className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-6 py-12">
-          <p className="text-center text-red-200">Movie not found</p>
+        <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-12 lg:gap-10 lg:px-8">
+          <p className="text-center text-sm text-red-200 sm:text-base">
+            Movie not found
+          </p>
         </main>
       </div>
     );
