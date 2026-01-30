@@ -16,7 +16,7 @@ export default function MovieCard({
   movieId,
 }: MovieCardProps) {
   return (
-    <article className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 sm:gap-4 sm:p-5">
+    <article className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition duration-200 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/20 sm:gap-4 sm:p-5">
       <div className="flex h-48 items-center justify-center overflow-hidden rounded-xl bg-white/10 text-sm text-red-200 sm:h-56 lg:h-64">
         {posterUrl ? (
           <img
