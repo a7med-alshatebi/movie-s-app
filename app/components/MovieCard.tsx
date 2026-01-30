@@ -16,8 +16,8 @@ export default function MovieCard({
   movieId,
 }: MovieCardProps) {
   return (
-    <article className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-5">
-      <div className="flex h-40 items-center justify-center overflow-hidden rounded-xl bg-white/10 text-sm text-red-200">
+    <article className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 sm:gap-4 sm:p-5">
+      <div className="flex h-48 items-center justify-center overflow-hidden rounded-xl bg-white/10 text-sm text-red-200 sm:h-56 lg:h-64">
         {posterUrl ? (
           <img
             src={posterUrl}
@@ -29,16 +29,22 @@ export default function MovieCard({
           "Poster"
         )}
       </div>
-      <div className="flex flex-col gap-2">
-        <h2 className="text-lg font-semibold text-white">{title}</h2>
+      <div className="flex flex-col gap-1.5 sm:gap-2">
+        <h2 className="line-clamp-2 text-base font-semibold text-white sm:text-lg">
+          {title}
+        </h2>
         <div className="flex items-center justify-between">
-          <p className="text-sm text-red-200">{meta}</p>
-          {rating ? <p className="text-sm font-semibold text-yellow-400">⭐ {rating.toFixed(1)}</p> : null}
+          <p className="text-xs text-red-200 sm:text-sm">{meta}</p>
+          {rating ? (
+            <p className="text-xs font-semibold text-yellow-400 sm:text-sm">
+              ⭐ {rating.toFixed(1)}
+            </p>
+          ) : null}
         </div>
       </div>
       <NavigationLink
         href={`/movie/${movieId}`}
-        className="w-full rounded-lg border border-white/10 py-2 text-center text-sm font-medium text-red-100 transition hover:border-white/30"
+        className="w-full rounded-lg border border-white/10 py-2 text-center text-xs font-medium text-red-100 transition hover:border-white/30 sm:text-sm"
       >
         View details
       </NavigationLink>

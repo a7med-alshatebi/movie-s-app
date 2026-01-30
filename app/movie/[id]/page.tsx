@@ -54,35 +54,35 @@ export default async function MovieDetailsPage({
 
   return (
     <div className="min-h-screen bg-red-950 text-red-50">
-      <main className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-6 py-12">
+      <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-12 lg:gap-10 lg:px-8">
         <NavigationLink
           href="/"
-          className="text-sm text-red-300 transition hover:text-red-100"
+          className="text-xs text-red-300 transition hover:text-red-100 sm:text-sm"
         >
           ← Back to search
         </NavigationLink>
 
-        <div className="flex flex-col gap-8 md:flex-row">
+        <div className="flex flex-col gap-6 sm:gap-8 md:flex-row">
           <div className="flex-shrink-0">
             {movie.poster_path ? (
               <img
                 src={`${POSTER_BASE_URL}${movie.poster_path}`}
                 alt={movie.title}
-                className="w-full rounded-2xl md:w-80"
+                className="w-full rounded-2xl sm:max-w-sm md:w-72 lg:w-80"
               />
             ) : (
-              <div className="flex h-96 w-full items-center justify-center rounded-2xl bg-white/10 text-red-200 md:w-80">
+              <div className="flex h-96 w-full items-center justify-center rounded-2xl bg-white/10 text-red-200 sm:max-w-sm md:h-[28rem] md:w-72 lg:h-[30rem] lg:w-80">
                 No poster
               </div>
             )}
           </div>
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4 sm:gap-6">
             <div>
-              <h1 className="text-4xl font-semibold tracking-tight">
+              <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
                 {movie.title}
               </h1>
-              <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-red-200">
+              <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-red-200 sm:mt-3 sm:gap-4 sm:text-sm">
                 <span>{movie.release_date?.split("-")[0] || "N/A"}</span>
                 {movie.runtime ? <span>• {movie.runtime} min</span> : null}
                 {movie.vote_average ? (
@@ -98,7 +98,7 @@ export default async function MovieDetailsPage({
                 {movie.genres.map((genre) => (
                   <span
                     key={genre.id}
-                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-sm text-red-100"
+                    className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-red-100 sm:px-3 sm:text-sm"
                   >
                     {genre.name}
                   </span>
@@ -108,8 +108,10 @@ export default async function MovieDetailsPage({
 
             {movie.overview && (
               <div>
-                <h2 className="mb-2 text-lg font-semibold">Overview</h2>
-                <p className="leading-7 text-red-200">{movie.overview}</p>
+                <h2 className="mb-2 text-base font-semibold sm:text-lg">Overview</h2>
+                <p className="text-sm leading-6 text-red-200 sm:text-base sm:leading-7">
+                  {movie.overview}
+                </p>
               </div>
             )}
           </div>

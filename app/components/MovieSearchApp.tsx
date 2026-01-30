@@ -81,7 +81,7 @@ export default function MovieSearchApp() {
   };
 
   return (
-    <section className="flex flex-col gap-8">
+    <section className="flex flex-col gap-6 sm:gap-8">
       <SearchBar
         value={query}
         onChange={setQuery}
@@ -92,10 +92,10 @@ export default function MovieSearchApp() {
       {!isSearched ? (
         <>
           <div>
-            <h2 className="mb-4 text-xl font-semibold text-white">
+            <h2 className="mb-3 text-lg font-semibold text-white sm:mb-4 sm:text-xl">
               Trending this week
             </h2>
-            <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <section className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
               {trendingMovies.map((movie) => (
                 <MovieCard
                   key={movie.id}
@@ -110,10 +110,10 @@ export default function MovieSearchApp() {
           </div>
 
           <div>
-            <h2 className="mb-4 text-xl font-semibold text-white">
+            <h2 className="mb-3 text-lg font-semibold text-white sm:mb-4 sm:text-xl">
               Popular movies
             </h2>
-            <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <section className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
               {movies.map((movie) => (
                 <MovieCard
                   key={movie.id}
@@ -129,8 +129,10 @@ export default function MovieSearchApp() {
         </>
       ) : (
         <>
-          <p className="text-sm text-red-300">Search results for "{query}"</p>
-          <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <p className="text-xs text-red-300 sm:text-sm">
+            Search results for "{query}"
+          </p>
+          <section className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {movies.map((movie) => (
               <MovieCard
                 key={movie.id}
