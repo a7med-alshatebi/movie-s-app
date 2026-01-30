@@ -154,7 +154,7 @@ export default async function MovieDetailsPage({
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-950/40 to-red-950" />
         <NavigationLink
           href="/"
-          className="fixed left-4 top-4 z-50 inline-flex items-center justify-center rounded-full border border-white/10 bg-red-950/70 p-2 text-sm font-semibold text-red-100 shadow-lg shadow-black/40 backdrop-blur transition hover:border-white/30 hover:bg-red-950/90 sm:left-6 sm:top-6"
+          className="fixed left-4 top-4 z-50 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 p-2 text-sm text-red-100 shadow-md shadow-black/30 backdrop-blur transition hover:border-white/30 hover:bg-white/10 sm:left-6 sm:top-6"
         >
           ←
         </NavigationLink>
