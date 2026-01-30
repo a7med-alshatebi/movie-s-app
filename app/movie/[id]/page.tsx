@@ -165,7 +165,7 @@ export default async function MovieDetailsPage({
 
       <main className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 pb-12 pt-6 sm:px-6 lg:px-8">
         <section className="grid gap-8 lg:grid-cols-[320px_1fr]">
-          <div className="-mt-24 sm:-mt-28">
+          <div className="-mt-24 flex justify-center sm:-mt-28 lg:justify-start">
             {movie.poster_path ? (
               <img
                 src={`${POSTER_BASE_URL}${movie.poster_path}`}
