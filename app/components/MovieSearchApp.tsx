@@ -31,19 +31,24 @@ export default function MovieSearchApp() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        `${API_URL}?apikey=${API_KEY}&s=${encodeURIComponent(trimmed)}`
-      );
+      const url = `${API_URL}?apikey=${API_KEY}&s=${encodeURIComponent(trimmed)}`;
+      console.log("Fetching from:", url);
+      
+      const response = await fetch(url);
       const data = await response.json();
+      
+      console.log("API Response:", data);
+      console.log("Response Status:", response.status);
 
       if (data.Response === "False") {
+        console.log("No results found:", data.Error);
         setMovies([]);
         return;
       }
 
       setMovies(data.Search ?? []);
     } catch (err) {
-      console.error(err);
+      console.error("Fetch Error:", err);
       setMovies([]);
     } finally {
       setIsLoading(false);
