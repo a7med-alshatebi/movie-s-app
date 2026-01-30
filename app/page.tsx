@@ -12,8 +12,7 @@ export default function Home() {
             Find movies fast
           </h1>
           <p className="max-w-2xl text-base leading-7 text-red-200">
-            Search for any title and get clean, focused results. We will connect
-            it to real data next step.
+            Search for any title and get clean, focused results.
           </p>
         </header>
 

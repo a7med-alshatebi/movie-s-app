@@ -9,6 +9,7 @@ type Movie = {
   title: string;
   release_date: string;
   poster_path: string | null;
+  vote_average: number;
 };
 
 const API_URL = "https://api.themoviedb.org/3";
@@ -68,9 +69,11 @@ export default function MovieSearchApp() {
         {movies.map((movie) => (
           <MovieCard
             key={movie.id}
+            movieId={movie.id}
             title={movie.title}
             meta={movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
             posterUrl={movie.poster_path ? `${POSTER_BASE_URL}${movie.poster_path}` : undefined}
+            rating={movie.vote_average}
           />
         ))}
       </section>
