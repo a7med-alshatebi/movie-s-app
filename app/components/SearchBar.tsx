@@ -29,7 +29,7 @@ export default function SearchBar({
       <button
         type="submit"
         disabled={isLoading}
-        className="hidden h-11 rounded-full bg-red-500 px-5 text-sm font-semibold text-white shadow-lg shadow-red-500/30 transition hover:bg-red-400 disabled:cursor-not-allowed disabled:opacity-70 sm:inline-flex"
+        className="hidden h-11 items-center justify-center rounded-full bg-red-500 px-5 text-sm font-semibold text-white shadow-lg shadow-red-500/30 transition hover:bg-red-400 disabled:cursor-not-allowed disabled:opacity-70 sm:inline-flex"
       >
         {isLoading ? "Searching..." : "Search"}
       </button>
