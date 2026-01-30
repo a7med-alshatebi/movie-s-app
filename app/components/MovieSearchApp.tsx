@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import SearchBar from "./SearchBar";
 
@@ -19,7 +19,30 @@ const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500";
 export default function MovieSearchApp() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSearched, setIsSearched] = useState(false);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const [popularResponse, trendingResponse] = await Promise.all([
+          fetch(`${API_URL}/movie/popular?api_key=${API_KEY}`),
+          fetch(`${API_URL}/trending/movie/week?api_key=${API_KEY}`)
+        ]);
+        
+        const popularData = await popularResponse.json();
+        const trendingData = await trendingResponse.json();
+        
+        setMovies(popularData.results?.slice(0, 12) ?? []);
+        setTrendingMovies(trendingData.results?.slice(0, 6) ?? []);
+      } catch (err) {
+        console.error("Error fetching movies:", err);
+      }
+    };
+
+    fetchMovies();
+  }, []);
 
   const handleSearch = async () => {
     const trimmed = query.trim();
@@ -30,6 +53,7 @@ export default function MovieSearchApp() {
     }
 
     setIsLoading(true);
+    setIsSearched(true);
 
     try {
       const url = `${API_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(trimmed)}`;
@@ -65,18 +89,61 @@ export default function MovieSearchApp() {
         isLoading={isLoading}
       />
 
-      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {movies.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            movieId={movie.id}
-            title={movie.title}
-            meta={movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
-            posterUrl={movie.poster_path ? `${POSTER_BASE_URL}${movie.poster_path}` : undefined}
-            rating={movie.vote_average}
-          />
-        ))}
-      </section>
+      {!isSearched ? (
+        <>
+          <div>
+            <h2 className="mb-4 text-xl font-semibold text-white">
+              Trending this week
+            </h2>
+            <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {trendingMovies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movieId={movie.id}
+                  title={movie.title}
+                  meta={movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
+                  posterUrl={movie.poster_path ? `${POSTER_BASE_URL}${movie.poster_path}` : undefined}
+                  rating={movie.vote_average}
+                />
+              ))}
+            </section>
+          </div>
+
+          <div>
+            <h2 className="mb-4 text-xl font-semibold text-white">
+              Popular movies
+            </h2>
+            <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {movies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movieId={movie.id}
+                  title={movie.title}
+                  meta={movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
+                  posterUrl={movie.poster_path ? `${POSTER_BASE_URL}${movie.poster_path}` : undefined}
+                  rating={movie.vote_average}
+                />
+              ))}
+            </section>
+          </div>
+        </>
+      ) : (
+        <>
+          <p className="text-sm text-red-300">Search results for "{query}"</p>
+          <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {movies.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                movieId={movie.id}
+                title={movie.title}
+                meta={movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
+                posterUrl={movie.poster_path ? `${POSTER_BASE_URL}${movie.poster_path}` : undefined}
+                rating={movie.vote_average}
+              />
+            ))}
+          </section>
+        </>
+      )}
     </section>
   );
 }
