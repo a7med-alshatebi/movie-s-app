@@ -152,15 +152,12 @@ export default async function MovieDetailsPage({
           <div className="h-full w-full bg-white/5" />
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-950/40 to-red-950" />
-        <div className="absolute left-0 right-0 top-0 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-6 sm:px-6 lg:px-8">
-          <NavigationLink
-            href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-semibold text-red-100 transition hover:border-white/30 hover:bg-white/20 sm:text-sm"
-          >
-            <span className="text-base">←</span>
-            Back to search
-          </NavigationLink>
-        </div>
+        <NavigationLink
+          href="/"
+          className="fixed left-4 top-4 z-50 inline-flex items-center justify-center rounded-full border border-white/10 bg-red-950/70 p-2 text-sm font-semibold text-red-100 shadow-lg shadow-black/40 backdrop-blur transition hover:border-white/30 hover:bg-red-950/90 sm:left-6 sm:top-6"
+        >
+          ←
+        </NavigationLink>
       </div>
 
       <main className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 pb-12 pt-6 sm:px-6 lg:px-8">
