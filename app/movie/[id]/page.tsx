@@ -11,6 +11,10 @@ type MovieDetails = {
   status: string;
   original_language: string;
   homepage: string | null;
+  budget: number;
+  revenue: number;
+  production_countries: { iso_3166_1: string; name: string }[];
+  spoken_languages: { english_name: string; name: string }[];
   overview: string;
   poster_path: string | null;
   backdrop_path: string | null;
@@ -86,10 +90,10 @@ export default async function MovieDetailsPage({
                 <img
                   src={`${POSTER_BASE_URL}${movie.poster_path}`}
                   alt={movie.title}
-                  className="w-full rounded-3xl border border-white/10 shadow-2xl shadow-red-500/20 sm:max-w-sm md:w-72 lg:w-80"
+                  className="w-full max-w-[240px] rounded-3xl border border-white/10 shadow-2xl shadow-red-500/20 sm:max-w-sm md:w-72 lg:w-80"
                 />
               ) : (
-                <div className="flex h-96 w-full items-center justify-center rounded-3xl border border-white/10 bg-white/5 text-red-200 sm:max-w-sm md:h-[28rem] md:w-72 lg:h-[30rem] lg:w-80">
+                <div className="flex h-80 w-full items-center justify-center rounded-3xl border border-white/10 bg-white/5 text-red-200 sm:max-w-sm md:h-[28rem] md:w-72 lg:h-[30rem] lg:w-80">
                   No poster
                 </div>
               )}
@@ -147,6 +151,14 @@ export default async function MovieDetailsPage({
                 <div className="grid gap-3 text-sm text-red-200 sm:grid-cols-2">
                   <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                     <p className="text-xs uppercase tracking-widest text-red-300">
+                      Release date
+                    </p>
+                    <p className="mt-1 text-sm text-red-100">
+                      {movie.release_date || "N/A"}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                    <p className="text-xs uppercase tracking-widest text-red-300">
                       Status
                     </p>
                     <p className="mt-1 text-sm text-red-100">
@@ -163,6 +175,16 @@ export default async function MovieDetailsPage({
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                     <p className="text-xs uppercase tracking-widest text-red-300">
+                      Countries
+                    </p>
+                    <p className="mt-1 text-sm text-red-100">
+                      {movie.production_countries?.length
+                        ? movie.production_countries.map((c) => c.name).join(", ")
+                        : "N/A"}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                    <p className="text-xs uppercase tracking-widest text-red-300">
                       Runtime
                     </p>
                     <p className="mt-1 text-sm text-red-100">
@@ -175,6 +197,34 @@ export default async function MovieDetailsPage({
                     </p>
                     <p className="mt-1 text-sm text-red-100">
                       {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                    <p className="text-xs uppercase tracking-widest text-red-300">
+                      Budget
+                    </p>
+                    <p className="mt-1 text-sm text-red-100">
+                      {movie.budget ? `$${movie.budget.toLocaleString()}` : "N/A"}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                    <p className="text-xs uppercase tracking-widest text-red-300">
+                      Revenue
+                    </p>
+                    <p className="mt-1 text-sm text-red-100">
+                      {movie.revenue ? `$${movie.revenue.toLocaleString()}` : "N/A"}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 sm:col-span-2">
+                    <p className="text-xs uppercase tracking-widest text-red-300">
+                      Spoken languages
+                    </p>
+                    <p className="mt-1 text-sm text-red-100">
+                      {movie.spoken_languages?.length
+                        ? movie.spoken_languages
+                            .map((lang) => lang.english_name || lang.name)
+                            .join(", ")
+                        : "N/A"}
                     </p>
                   </div>
                 </div>
