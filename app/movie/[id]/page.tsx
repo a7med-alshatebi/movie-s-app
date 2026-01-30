@@ -37,9 +37,10 @@ async function getMovieDetails(id: string): Promise<MovieDetails | null> {
 export default async function MovieDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const movie = await getMovieDetails(params.id);
+  const { id } = await params;
+  const movie = await getMovieDetails(id);
 
   if (!movie) {
     return (
