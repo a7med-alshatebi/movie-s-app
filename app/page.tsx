@@ -17,14 +17,14 @@ export default function Home() {
               details in a single click.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2 text-xs text-red-200 sm:text-sm">
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+          <div className="flex flex-wrap gap-1 sm:gap-2 text-xs sm:text-sm text-red-200">
+            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 sm:px-3 sm:py-1">
               Fast search
             </span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 sm:px-3 sm:py-1">
               Trending lists
             </span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 sm:px-3 sm:py-1">
               Detailed pages
             </span>
           </div>
