@@ -1,13 +1,23 @@
 import MovieSearchApp from "./components/MovieSearchApp";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-red-950 text-red-50">
       <main className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-8 sm:gap-10 sm:px-6 sm:py-12 lg:px-8">
         <header className="flex flex-col gap-3 sm:gap-4 bg-black/30 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8">
-          <p className="tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs font-semibold opacity-70">
-            Movie Search
-          </p>
+          <div className="flex items-center justify-between gap-4">
+            <p className="tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs font-semibold opacity-70">
+              Movie Search
+            </p>
+            <Link
+              href="/watchlist"
+              className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs sm:text-sm text-red-100 hover:border-white/30 transition"
+            >
+              <span>📋</span>
+              <span className="hidden sm:inline">Watchlist</span>
+            </Link>
+          </div>
           <div className="flex flex-col gap-2 sm:gap-3">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight sm:tracking-tighter">
               Discover movies you love

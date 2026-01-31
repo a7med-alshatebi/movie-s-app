@@ -179,7 +179,7 @@ export default function MovieSearchApp() {
               ) : (
                 <div className="h-full w-full bg-white/5" />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-red-950/90 via-red-950/30 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-red-950/90 via-red-950/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <p className="text-xs uppercase tracking-[0.3em] text-red-200">
                   Featured movie of the day
@@ -200,7 +200,7 @@ export default function MovieSearchApp() {
               <div className="mt-4 space-y-3">
                 {trendingMovies.slice(0, 3).map((movie) => (
                   <div key={movie.id} className="flex items-center gap-3">
-                    <div className="h-12 w-9 rounded-lg bg-white/10 overflow-hidden flex-shrink-0">
+                    <div className="h-12 w-9 rounded-lg bg-white/10 overflow-hidden shrink-0">
                       {movie.poster_path ? (
                         <img
                           src={`${POSTER_BASE_URL}${movie.poster_path}`}
@@ -231,7 +231,7 @@ export default function MovieSearchApp() {
               <div className="mt-4 space-y-3">
                 {topRatedMovies.slice(0, 3).map((movie) => (
                   <div key={movie.id} className="flex items-center gap-3">
-                    <div className="h-12 w-9 rounded-lg bg-white/10 overflow-hidden flex-shrink-0">
+                    <div className="h-12 w-9 rounded-lg bg-white/10 overflow-hidden shrink-0">
                       {movie.poster_path ? (
                         <img
                           src={`${POSTER_BASE_URL}${movie.poster_path}`}
@@ -278,11 +278,7 @@ export default function MovieSearchApp() {
               {popularMovies.map((movie) => (
                 <MovieCard
                   key={movie.id}
-                  movieId={movie.id}
-                  title={movie.title}
-                  meta={movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
-                  posterUrl={movie.poster_path ? `${POSTER_BASE_URL}${movie.poster_path}` : undefined}
-                  rating={movie.vote_average}
+                  movie={movie}
                 />
               ))}
             </section>
@@ -304,11 +300,7 @@ export default function MovieSearchApp() {
               : searchResults.map((movie) => (
                   <MovieCard
                     key={movie.id}
-                    movieId={movie.id}
-                    title={movie.title}
-                    meta={movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
-                    posterUrl={movie.poster_path ? `${POSTER_BASE_URL}${movie.poster_path}` : undefined}
-                    rating={movie.vote_average}
+                    movie={movie}
                   />
                 ))}
           </section>

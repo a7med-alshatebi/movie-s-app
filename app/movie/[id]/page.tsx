@@ -1,5 +1,9 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import NavigationLink from "@/app/components/NavigationLink";
 import MovieCard from "@/app/components/MovieCard";
+import { useWatchlist, type Movie } from "@/app/context/WatchlistContext";
 
 const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = "7d8ea17b3a02ac945e53f4753d8e25b0";
@@ -38,6 +42,7 @@ type SimilarMovie = {
   title: string;
   release_date: string;
   poster_path: string | null;
+  backdrop_path: string | null;
   vote_average: number;
 };
 
@@ -110,22 +115,79 @@ async function getSimilarMovies(id: string): Promise<SimilarMovie[]> {
   }
 }
 
-export default async function MovieDetailsPage({
+export default function MovieDetailsPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
-  const [movie, cast, videos, similarMovies] = await Promise.all([
-    getMovieDetails(id),
-    getMovieCredits(id),
-    getMovieVideos(id),
-    getSimilarMovies(id),
-  ]);
+  const [id, setId] = useState<string | null>(null);
+  const [movie, setMovie] = useState<MovieDetails | null>(null);
+  const [cast, setCast] = useState<CastMember[]>([]);
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [similarMovies, setSimilarMovies] = useState<SimilarMovie[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
+
+  // Get the ID from params
+  useEffect(() => {
+    params.then((p) => setId(p.id));
+  }, [params]);
+
+  // Fetch movie data when ID is available
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchData = async () => {
+      setLoading(true);
+      const [movieData, castData, videosData, similarData] = await Promise.all([
+        getMovieDetails(id),
+        getMovieCredits(id),
+        getMovieVideos(id),
+        getSimilarMovies(id),
+      ]);
+      setMovie(movieData);
+      setCast(castData);
+      setVideos(videosData);
+      setSimilarMovies(similarData);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [id]);
+
+  const handleWatchlistToggle = () => {
+    if (!movie) return;
+    
+    if (isInWatchlist(movie.id)) {
+      removeFromWatchlist(movie.id);
+    } else {
+      const movieToAdd: Movie = {
+        id: movie.id,
+        title: movie.title,
+        release_date: movie.release_date,
+        poster_path: movie.poster_path,
+        backdrop_path: movie.backdrop_path,
+        vote_average: movie.vote_average,
+      };
+      addToWatchlist(movieToAdd);
+    }
+  };
 
   const trailer = videos.find(
     (video) => video.site === "YouTube" && video.type === "Trailer"
   );
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-red-950 text-red-50">
+        <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-12 lg:gap-10 lg:px-8">
+          <p className="text-center text-sm text-red-200 sm:text-base">
+            Loading movie details...
+          </p>
+        </main>
+      </div>
+    );
+  }
 
   if (!movie) {
     return (
@@ -139,9 +201,11 @@ export default async function MovieDetailsPage({
     );
   }
 
+  const inWatchlist = isInWatchlist(movie.id);
+
   return (
     <div className="min-h-screen bg-red-950 text-red-50">
-      <div className="relative h-[50vh] min-h-[360px] w-full">
+      <div className="relative h-[50vh] min-h-90 w-full">
         {movie.backdrop_path ? (
           <img
             src={`${BACKDROP_BASE_URL}${movie.backdrop_path}`}
@@ -151,7 +215,7 @@ export default async function MovieDetailsPage({
         ) : (
           <div className="h-full w-full bg-white/5" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-950/40 to-red-950" />
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-red-950/40 to-red-950" />
         <NavigationLink
           href="/"
           className="fixed left-4 top-4 z-50 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 p-2 text-sm text-red-100 shadow-md shadow-black/30 backdrop-blur transition hover:border-white/30 hover:bg-white/10 sm:left-6 sm:top-6"
@@ -178,7 +242,7 @@ export default async function MovieDetailsPage({
               <img
                 src={`${POSTER_BASE_URL}${movie.poster_path}`}
                 alt={movie.title}
-                className="w-full max-w-[240px] rounded-3xl shadow-2xl shadow-black/40 sm:max-w-sm lg:max-w-none"
+                className="w-full max-w-60 rounded-3xl shadow-2xl shadow-black/40 sm:max-w-sm lg:max-w-none"
               />
             ) : (
               <div className="flex h-80 w-full items-center justify-center rounded-3xl bg-white/10 text-red-200 sm:max-w-sm">
@@ -242,10 +306,15 @@ export default async function MovieDetailsPage({
                 </a>
               ) : null}
               <button
+                onClick={handleWatchlistToggle}
                 type="button"
-                className="rounded-full border border-white/10 bg-white/10 px-5 py-3 text-xs font-semibold text-red-100 transition active:scale-95 sm:text-sm"
+                className={`rounded-full px-5 py-3 text-xs font-semibold transition active:scale-95 sm:text-sm ${
+                  inWatchlist
+                    ? "border border-yellow-500/50 bg-yellow-500/10 text-yellow-300 shadow-lg shadow-yellow-500/20 hover:border-yellow-500 hover:bg-yellow-500/20"
+                    : "border border-white/10 bg-white/10 text-red-100 hover:border-white/30 hover:bg-white/20"
+                }`}
               >
-                Add to Watchlist
+                {inWatchlist ? "✓ In Watchlist" : "+ Add to Watchlist"}
               </button>
               <button
                 type="button"
@@ -288,11 +357,7 @@ export default async function MovieDetailsPage({
               {similarMovies.map((movieItem) => (
                 <MovieCard
                   key={movieItem.id}
-                  movieId={movieItem.id}
-                  title={movieItem.title}
-                  meta={movieItem.release_date ? movieItem.release_date.split("-")[0] : "N/A"}
-                  posterUrl={movieItem.poster_path ? `${POSTER_BASE_URL}${movieItem.poster_path}` : undefined}
-                  rating={movieItem.vote_average}
+                  movie={movieItem}
                 />
               ))}
             </div>
