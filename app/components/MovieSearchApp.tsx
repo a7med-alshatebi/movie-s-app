@@ -39,6 +39,7 @@ export default function MovieSearchApp() {
   const [topRatedMovies, setTopRatedMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSearched, setIsSearched] = useState(false);
+  const [featuredIndex, setFeaturedIndex] = useState(0);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -65,6 +66,18 @@ export default function MovieSearchApp() {
 
     fetchMovies();
   }, []);
+
+  // Auto-rotate featured movie every 5 seconds
+  useEffect(() => {
+    const allMovies = [...trendingMovies, ...topRatedMovies, ...popularMovies];
+    if (allMovies.length === 0) return;
+
+    const interval = setInterval(() => {
+      setFeaturedIndex((prev) => (prev + 1) % allMovies.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [trendingMovies, topRatedMovies, popularMovies]);
 
   useEffect(() => {
     if (!query.trim()) {
@@ -115,10 +128,10 @@ export default function MovieSearchApp() {
     }
   };
 
-  const featuredMovie = useMemo(
-    () => trendingMovies[0] ?? topRatedMovies[0] ?? popularMovies[0],
-    [trendingMovies, topRatedMovies, popularMovies]
-  );
+  const featuredMovie = useMemo(() => {
+    const allMovies = [...trendingMovies, ...topRatedMovies, ...popularMovies];
+    return allMovies[featuredIndex] ?? allMovies[0];
+  }, [featuredIndex, trendingMovies, topRatedMovies, popularMovies]);
 
   const showSearchResults = isSearched && query.trim().length > 0;
 
