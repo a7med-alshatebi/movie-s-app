@@ -200,7 +200,17 @@ export default function MovieSearchApp() {
               <div className="mt-4 space-y-3">
                 {trendingMovies.slice(0, 3).map((movie) => (
                   <div key={movie.id} className="flex items-center gap-3">
-                    <div className="h-12 w-9 rounded-lg bg-white/10" />
+                    <div className="h-12 w-9 rounded-lg bg-white/10 overflow-hidden flex-shrink-0">
+                      {movie.poster_path ? (
+                        <img
+                          src={`${POSTER_BASE_URL}${movie.poster_path}`}
+                          alt={movie.title}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="h-full w-full bg-white/5" />
+                      )}
+                    </div>
                     <div>
                       <p className="text-sm text-white line-clamp-1">
                         {movie.title}
@@ -221,7 +231,17 @@ export default function MovieSearchApp() {
               <div className="mt-4 space-y-3">
                 {topRatedMovies.slice(0, 3).map((movie) => (
                   <div key={movie.id} className="flex items-center gap-3">
-                    <div className="h-12 w-9 rounded-lg bg-white/10" />
+                    <div className="h-12 w-9 rounded-lg bg-white/10 overflow-hidden flex-shrink-0">
+                      {movie.poster_path ? (
+                        <img
+                          src={`${POSTER_BASE_URL}${movie.poster_path}`}
+                          alt={movie.title}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="h-full w-full bg-white/5" />
+                      )}
+                    </div>
                     <div>
                       <p className="text-sm text-white line-clamp-1">
                         {movie.title}
