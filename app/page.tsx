@@ -4,15 +4,15 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-red-950 text-red-50">
       <main className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-8 sm:gap-10 sm:px-6 sm:py-12 lg:px-8">
-        <header className="flex flex-col gap-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-red-300 sm:text-sm">
+        <header className="flex flex-col gap-3 sm:gap-4 bg-black/30 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8">
+          <p className="tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs font-semibold opacity-70">
             Movie Search
           </p>
-          <div className="flex flex-col gap-3">
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+          <div className="flex flex-col gap-2 sm:gap-3">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight sm:tracking-tighter">
               Discover movies you love
             </h1>
-            <p className="max-w-2xl text-sm leading-6 text-red-200 sm:text-base sm:leading-7">
+            <p className="max-w-2xl text-sm sm:text-base text-slate-400 leading-relaxed">
               Search the latest hits, explore trending favorites, and open full
               details in a single click.
             </p>
