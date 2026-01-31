@@ -43,7 +43,7 @@ export default function WatchlistPage() {
 
       <main className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-8 sm:gap-10 sm:px-6 sm:py-12 lg:px-8">
         {watchlist.length === 0 ? (
-          <div className="flex flex-col items-center justify-center gap-8 rounded-3xl border border-white/10 bg-linear-to-br from-white/5 to-white/[0.02] py-20 px-6 sm:py-28 text-center">
+          <div className="flex flex-col items-center justify-center gap-8 rounded-3xl border border-white/10 bg-linear-to-br from-white/5 to-white/2 py-20 px-6 sm:py-28 text-center">
             <div className="text-8xl sm:text-9xl opacity-80">📽️</div>
             <div className="flex flex-col gap-3 max-w-md">
               <h2 className="text-3xl sm:text-4xl font-black tracking-tighter">Your watchlist is empty</h2>
@@ -53,7 +53,7 @@ export default function WatchlistPage() {
             </div>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-red-600 to-red-700 px-8 py-3 font-semibold text-white shadow-lg shadow-red-600/30 transition active:scale-95 hover:shadow-lg hover:shadow-red-600/50"
+              className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-red-600 to-red-700 px-8 py-3 font-semibold text-white shadow-lg shadow-red-600/30 transition active:scale-95 hover:shadow-lg hover:shadow-red-600/50"
             >
               <span>🔍</span>
               <span>Explore Movies</span>

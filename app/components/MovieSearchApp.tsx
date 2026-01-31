@@ -3,6 +3,9 @@
 import { useMemo, useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import SearchBar from "./SearchBar";
+import SignInModal from "./SignInModal";
+import UserProfile from "./UserProfile";
+import { useAuth } from "../context/AuthContext";
 
 type Movie = {
   id: number;
@@ -40,6 +43,9 @@ export default function MovieSearchApp() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSearched, setIsSearched] = useState(false);
   const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [showSignIn, setShowSignIn] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -148,23 +154,31 @@ export default function MovieSearchApp() {
             />
           </div>
           <button
+            onClick={() => user ? setShowProfile(true) : setShowSignIn(true)}
             type="button"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-red-100 transition hover:border-white/30"
-            aria-label="User profile"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-red-100 transition hover:border-white/30 hover:bg-white/10"
+            aria-label={user ? "User profile" : "Sign in"}
           >
-            <svg
-              viewBox="0 0 24 24"
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.6"
-            >
-              <path d="M20 21c0-3.866-3.582-7-8-7s-8 3.134-8 7" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
+            {user ? (
+              <span className="text-xs font-semibold">{user.email?.[0].toUpperCase()}</span>
+            ) : (
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              >
+                <path d="M20 21c0-3.866-3.582-7-8-7s-8 3.134-8 7" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            )}
           </button>
         </div>
       </div>
+
+      <SignInModal isOpen={showSignIn} onClose={() => setShowSignIn(false)} />
+      <UserProfile isOpen={showProfile} onClose={() => setShowProfile(false)} />
 
       {!showSearchResults ? (
         <>
