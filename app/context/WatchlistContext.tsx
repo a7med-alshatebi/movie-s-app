@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { doc, onSnapshot, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/app/context/AuthContext";
 
@@ -43,18 +43,18 @@ export function WatchlistProvider({ children }: { children: React.ReactNode }) {
     hasHydratedRef.current = true;
   }, []);
 
-  // Hydrate from Firestore when signed in
+  // Realtime sync from Firestore when signed in
   useEffect(() => {
-    const hydrateFromFirestore = async () => {
-      if (!user) {
-        hasHydratedRef.current = true;
-        return;
-      }
+    if (!user) {
+      hasHydratedRef.current = true;
+      return;
+    }
 
-      isSyncingRef.current = true;
-      try {
-        const docRef = doc(db, "watchlists", user.uid);
-        const snapshot = await getDoc(docRef);
+    const docRef = doc(db, "watchlists", user.uid);
+    const unsubscribe = onSnapshot(
+      docRef,
+      (snapshot) => {
+        isSyncingRef.current = true;
         if (snapshot.exists()) {
           const data = snapshot.data() as { movies?: Movie[] };
           if (data.movies) {
@@ -70,15 +70,17 @@ export function WatchlistProvider({ children }: { children: React.ReactNode }) {
             }
           }
         }
-      } catch (error) {
-        console.error("Failed to load watchlist from Firestore:", error);
-      } finally {
+        hasHydratedRef.current = true;
+        isSyncingRef.current = false;
+      },
+      (error) => {
+        console.error("Failed to sync watchlist from Firestore:", error);
         hasHydratedRef.current = true;
         isSyncingRef.current = false;
       }
-    };
+    );
 
-    hydrateFromFirestore();
+    return () => unsubscribe();
   }, [user]);
 
   // Save to localStorage whenever watchlist changes
