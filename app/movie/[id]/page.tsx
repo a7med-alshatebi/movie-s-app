@@ -173,6 +173,29 @@ export default function MovieDetailsPage({
     }
   };
 
+  const handleShare = async () => {
+    if (!movie) return;
+
+    const shareData = {
+      title: movie.title,
+      text: `Check out "${movie.title}" - Rating: ⭐ ${movie.vote_average.toFixed(1)}`,
+      url: typeof window !== "undefined" ? window.location.href : "",
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback: copy to clipboard
+        const text = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
+        await navigator.clipboard.writeText(text);
+        alert("Movie details copied to clipboard!");
+      }
+    } catch (error) {
+      console.error("Error sharing:", error);
+    }
+  };
+
   const trailer = videos.find(
     (video) => video.site === "YouTube" && video.type === "Trailer"
   );
@@ -317,10 +340,11 @@ export default function MovieDetailsPage({
                 {inWatchlist ? "✓ In Watchlist" : "+ Add to Watchlist"}
               </button>
               <button
+                onClick={handleShare}
                 type="button"
-                className="rounded-full border border-white/10 bg-white/10 px-5 py-3 text-xs font-semibold text-red-100 transition active:scale-95 sm:text-sm"
+                className="rounded-full border border-white/10 bg-white/10 px-5 py-3 text-xs font-semibold text-red-100 transition active:scale-95 hover:border-white/30 hover:bg-white/20 sm:text-sm"
               >
-                Share
+                ↗ Share
               </button>
             </div>
           </div>
