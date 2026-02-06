@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import NavigationLink from "@/app/components/NavigationLink";
 import MovieCard from "@/app/components/MovieCard";
+import BackToTopButton from "@/app/components/BackToTopButton";
 import { useWatchlist, type Movie } from "@/app/context/WatchlistContext";
 
 const API_URL = "https://api.themoviedb.org/3";
@@ -228,6 +229,7 @@ export default function MovieDetailsPage({
 
   return (
     <div className="min-h-screen bg-red-950 text-red-50">
+      <BackToTopButton />
       <div className="relative h-[50vh] min-h-90 w-full">
         {movie.backdrop_path ? (
           <img
