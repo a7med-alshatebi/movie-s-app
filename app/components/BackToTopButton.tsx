@@ -32,10 +32,23 @@ export default function BackToTopButton() {
       <button
         onClick={scrollToTop}
         type="button"
-        className="fixed bottom-8 right-8 rounded-full bg-red-500 p-3 text-white shadow-lg shadow-red-500/30 transition hover:bg-red-600 active:scale-95 z-40 sm:hidden"
+        className="fixed bottom-8 right-8 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-rose-500 via-red-500 to-orange-400 text-white shadow-xl shadow-red-500/30 ring-1 ring-white/20 transition hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-red-500/40 active:translate-y-0 active:scale-95 sm:hidden"
         aria-label="Back to top"
       >
-        ↑
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 5l-7 7" />
+          <path d="M12 5l7 7" />
+          <path d="M12 5v14" />
+        </svg>
       </button>
     )
   );
