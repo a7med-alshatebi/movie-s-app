@@ -48,6 +48,21 @@ export default function MovieSearchApp() {
   const [showProfile, setShowProfile] = useState(false);
   const { user } = useAuth();
 
+  // Load search state from localStorage on mount
+  useEffect(() => {
+    const savedSearchState = localStorage.getItem("movieSearchState");
+    if (savedSearchState) {
+      try {
+        const { query: savedQuery, results: savedResults } = JSON.parse(savedSearchState);
+        setQuery(savedQuery);
+        setSearchResults(savedResults);
+        setIsSearched(true);
+      } catch (err) {
+        console.error("Error loading search state:", err);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -127,6 +142,11 @@ export default function MovieSearchApp() {
       }
 
       setSearchResults(data.results ?? []);
+      // Save search state to localStorage
+      localStorage.setItem("movieSearchState", JSON.stringify({
+        query: trimmed,
+        results: data.results ?? []
+      }));
     } catch (err) {
       console.error("Fetch Error:", err);
       setSearchResults([]);
