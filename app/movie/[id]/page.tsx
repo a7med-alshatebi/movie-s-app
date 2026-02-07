@@ -204,10 +204,104 @@ export default function MovieDetailsPage({
   if (loading) {
     return (
       <div className="min-h-screen bg-red-950 text-red-50">
-        <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-12 lg:gap-10 lg:px-8">
-          <p className="text-center text-sm text-red-200 sm:text-base">
-            Loading movie details...
-          </p>
+        <div className="relative h-[40vh] min-h-72 w-full sm:h-[50vh] sm:min-h-90">
+          <div className="skeleton h-full w-full bg-white/5" />
+          <div className="absolute inset-0 bg-linear-to-b from-transparent via-red-950/40 to-red-950" />
+          <NavigationLink
+            href="/"
+            className="fixed left-4 top-4 z-50 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 p-2 text-sm text-red-100 shadow-md shadow-black/30 backdrop-blur transition hover:border-white/30 hover:bg-white/10 sm:left-6 sm:top-6"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </NavigationLink>
+        </div>
+
+        <main className="skeleton-fade mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+          <section className="grid gap-8 lg:grid-cols-[320px_1fr]">
+            <div className="-mt-24 flex justify-center sm:-mt-28 lg:justify-start">
+              <div className="skeleton h-80 w-full max-w-60 rounded-3xl bg-white/10 sm:max-w-sm lg:max-w-none" />
+            </div>
+
+            <div className="flex flex-col gap-6">
+              <div className="space-y-3">
+                <div className="skeleton h-10 w-3/4 rounded-full bg-white/10" />
+                <div className="skeleton h-6 w-1/2 rounded-full bg-white/10" />
+                <div className="skeleton h-4 w-2/3 rounded-full bg-white/10" />
+              </div>
+
+              <div className="space-y-2">
+                <div className="skeleton h-5 w-24 rounded-full bg-white/10" />
+                <div className="skeleton h-4 w-full rounded-full bg-white/10" />
+                <div className="skeleton h-4 w-5/6 rounded-full bg-white/10" />
+                <div className="skeleton h-4 w-2/3 rounded-full bg-white/10" />
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <div
+                    key={`genre-skeleton-${index}`}
+                    className="skeleton h-7 w-20 rounded-full bg-white/10"
+                  />
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <div className="skeleton h-11 w-32 rounded-full bg-white/10" />
+                <div className="skeleton h-11 w-36 rounded-full bg-white/10" />
+                <div className="skeleton h-11 w-24 rounded-full bg-white/10" />
+              </div>
+            </div>
+          </section>
+
+          <section className="flex flex-col gap-4">
+            <div className="skeleton h-6 w-32 rounded-full bg-white/10" />
+            <div className="flex gap-4 overflow-hidden">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div
+                  key={`cast-skeleton-${index}`}
+                  className="flex w-24 flex-col items-center gap-2"
+                >
+                  <div className="skeleton aspect-square w-20 rounded-full bg-white/10" />
+                  <div className="skeleton h-3 w-16 rounded-full bg-white/10" />
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="flex flex-col gap-4">
+            <div className="skeleton h-6 w-40 rounded-full bg-white/10" />
+            <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <div
+                  key={`similar-skeleton-${index}`}
+                  className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 sm:gap-4 sm:p-5"
+                >
+                  <div className="skeleton flex h-48 items-center justify-center overflow-hidden rounded-xl bg-white/10 sm:h-56 lg:h-64" />
+                  <div className="flex flex-col gap-1.5 sm:gap-2">
+                    <div className="skeleton h-4 w-3/4 rounded-full bg-white/10" />
+                    <div className="flex items-center justify-between">
+                      <div className="skeleton h-3 w-12 rounded-full bg-white/10" />
+                      <div className="skeleton h-3 w-10 rounded-full bg-white/10" />
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="skeleton h-8 w-full rounded-lg bg-white/10" />
+                    <div className="skeleton h-8 w-10 rounded-lg bg-white/10" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         </main>
       </div>
     );
