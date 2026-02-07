@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
+import Link from "next/link";
 import MovieCard from "./MovieCard";
 import SearchBar from "./SearchBar";
 import SignInModal from "./SignInModal";
@@ -213,27 +214,29 @@ export default function MovieSearchApp() {
               </p>
               <div className="mt-4 space-y-3">
                 {trendingMovies.slice(0, 3).map((movie) => (
-                  <div key={movie.id} className="flex items-center gap-3">
-                    <div className="h-12 w-9 rounded-lg bg-white/10 overflow-hidden shrink-0">
-                      {movie.poster_path ? (
-                        <img
-                          src={`${POSTER_BASE_URL}${movie.poster_path}`}
-                          alt={movie.title}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className="h-full w-full bg-white/5" />
-                      )}
+                  <Link key={movie.id} href={`/movie/${movie.id}`}>
+                    <div className="flex items-center gap-3 rounded-lg p-2 transition hover:bg-white/10 cursor-pointer">
+                      <div className="h-12 w-9 rounded-lg bg-white/10 overflow-hidden shrink-0">
+                        {movie.poster_path ? (
+                          <img
+                            src={`${POSTER_BASE_URL}${movie.poster_path}`}
+                            alt={movie.title}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="h-full w-full bg-white/5" />
+                        )}
+                      </div>
+                      <div>
+                        <p className="text-sm text-white line-clamp-1">
+                          {movie.title}
+                        </p>
+                        <p className="text-xs text-red-200">
+                          {movie.release_date?.split("-")[0] || "N/A"}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm text-white line-clamp-1">
-                        {movie.title}
-                      </p>
-                      <p className="text-xs text-red-200">
-                        {movie.release_date?.split("-")[0] || "N/A"}
-                      </p>
-                    </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -244,27 +247,29 @@ export default function MovieSearchApp() {
               </p>
               <div className="mt-4 space-y-3">
                 {topRatedMovies.slice(0, 3).map((movie) => (
-                  <div key={movie.id} className="flex items-center gap-3">
-                    <div className="h-12 w-9 rounded-lg bg-white/10 overflow-hidden shrink-0">
-                      {movie.poster_path ? (
-                        <img
-                          src={`${POSTER_BASE_URL}${movie.poster_path}`}
-                          alt={movie.title}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className="h-full w-full bg-white/5" />
-                      )}
+                  <Link key={movie.id} href={`/movie/${movie.id}`}>
+                    <div className="flex items-center gap-3 rounded-lg p-2 transition hover:bg-white/10 cursor-pointer">
+                      <div className="h-12 w-9 rounded-lg bg-white/10 overflow-hidden shrink-0">
+                        {movie.poster_path ? (
+                          <img
+                            src={`${POSTER_BASE_URL}${movie.poster_path}`}
+                            alt={movie.title}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="h-full w-full bg-white/5" />
+                        )}
+                      </div>
+                      <div>
+                        <p className="text-sm text-white line-clamp-1">
+                          {movie.title}
+                        </p>
+                        <p className="text-xs text-red-200">
+                          ⭐ {movie.vote_average.toFixed(1)}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm text-white line-clamp-1">
-                        {movie.title}
-                      </p>
-                      <p className="text-xs text-red-200">
-                        ⭐ {movie.vote_average.toFixed(1)}
-                      </p>
-                    </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
