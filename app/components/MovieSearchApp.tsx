@@ -197,7 +197,7 @@ export default function MovieSearchApp() {
               <div className="absolute inset-0 bg-linear-to-t from-red-950/90 via-red-950/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <p className="text-xs uppercase tracking-[0.3em] text-red-200">
-                  Featured movie of the day
+                  Featured movie of the day..
                 </p>
                 <h2 className="mt-2 text-2xl font-semibold text-white sm:text-3xl">
                   {featuredMovie?.title ?? "Discover the best of TMDB"}
