@@ -1,4 +1,5 @@
 import MovieSearchApp from "./components/MovieSearchApp";
+import BackToTopButton from "./components/BackToTopButton";
 import Link from "next/link";
 
 export default function Home() {
@@ -42,6 +43,7 @@ export default function Home() {
 
         <MovieSearchApp />
       </main>
+      <BackToTopButton />
     </div>
   );
 }
